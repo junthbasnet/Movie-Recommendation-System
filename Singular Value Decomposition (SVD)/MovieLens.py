@@ -36,5 +36,25 @@ class MovieLens:
 
         return ratingsDataset
 
+    def getUserRatings(self, user):
+        userRatings = []
+        hitUser = False
+
+        with open(self.ratingsPath, newline='') as csvfile:
+            ratingReader = csv.reader(csvfile)
+            next(ratingReader)
+
+            for row in ratingReader:
+                userID = int(row[0])
+                if (user == userID):
+                    movieID = int(row[1])
+                    rating = float(row[2])
+                    userRatings.append((movieID, rating))
+                    hitUser = True
+
+                if (hitUser and (user != userID)):
+                    break
+        return userRatings
+
 
 
