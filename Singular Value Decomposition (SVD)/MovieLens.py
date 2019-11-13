@@ -74,5 +74,36 @@ class MovieLens:
                 rank += 1
             return rankings
 
+    def getGenres(self):
+        genres = defaultdict(int)
+        genreIDs = {}
+        maxGenreID = 0
+
+        with open(self.moviesPath, newline='', encoding='ISO-8859-1') as csvfile:
+            movieReader = csv.reader(csvfile)
+            next(movieReader)
+
+            for row in movieReader:
+                movieID = int(row[0])
+                genreList = row[2].split('|')
+                genreIDList = []
+
+                for genre in genreList:
+                    if genre in genreIDs:
+                        genreID = genreIDs[genre]
+                    else:
+                        genreID = maxGenreID
+                        genreIDs[genre] = genreID
+                        maxGenreID += 1
+                    genreIDList.append(genreID)
+                genres[movieID] = genreIDList
+
+        for (movieID, genreIDList) in genres.items():
+            bitField = [0] * maxGenreID
+            for genreID in genreIDList:
+                bitField[genreID] = 1
+            genres[movieID] = bitField
+        return genres
+
 
 
