@@ -105,5 +105,17 @@ class MovieLens:
             genres[movieID] = bitField
         return genres
 
+    def getMovieName(self, movieID):
+        if movieID in self.movieID_to_name:
+            return self.movieID_to_name[movieID]
+        else:
+            return ""
+
+    def getMovieID(self, movieName):
+        if movieName in self.name_to_movieID:
+            return self.name_to_movieID[movieName]
+        else:
+            return 0
+
 
 
