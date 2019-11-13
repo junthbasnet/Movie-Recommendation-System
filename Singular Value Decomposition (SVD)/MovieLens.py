@@ -5,6 +5,7 @@ import csv
 from surprise import Dataset
 from surprise import Reader
 
+from collections import defaultdict
 
 class MovieLens:
     movieID_to_name = {}
@@ -55,6 +56,23 @@ class MovieLens:
                 if (hitUser and (user != userID)):
                     break
         return userRatings
+
+    def getPopularityRanks(self):
+        ratings = defaultdict(int)
+        rankings = defaultdict(int)
+        with open(self.ratingsPath, newline='') as csvfile:
+            ratingReader = csv.reader(csvfile)
+            next(ratingReader)
+
+            for row in ratingReader:
+                movieID = int(row[1])
+                ratings[movieID] += 1
+
+            rank = 1
+            for movieID, ratingCount in sorted(ratings.items(), key=lambda x: x[1], reverse=True):
+                rankings[movieID] = rank
+                rank += 1
+            return rankings
 
 
 
