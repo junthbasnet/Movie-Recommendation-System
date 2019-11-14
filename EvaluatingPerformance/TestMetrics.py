@@ -7,7 +7,7 @@ from surprise.model_selection import LeaveOneOut
 
 ml = MovieLens()
 
-print('Loading movie ratings...')
+print('\nLoading movie ratings...')
 data = ml.loadMovieLensLatestSmall()
 
 print('\nBuilding Recommendation model...')
