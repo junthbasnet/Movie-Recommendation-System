@@ -59,5 +59,7 @@ for userID, movieID, actualRating, estimatedRating, _ in predictions:
     intMovieID = int(movieID)
     recommendations.append((intMovieID, estimatedRating))
 
+recommendations.sort(key=lambda x: x[1], reverse=True)
+
 for ratings in recommendations[:10]:
     print(ml.getMovieName(ratings[0]))
