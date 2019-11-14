@@ -26,3 +26,9 @@ for ratings in lovedMovies:
 print('\nUser {} hated these movies...'.format(testSubject))
 for ratings in hatedMovies:
     print(ml.getMovieName(ratings[0]))
+
+print('\nBuilding Recommendation model...')
+trainSet = data.build_full_trainset()
+
+algo = SVD()
+algo.fit(trainSet)
