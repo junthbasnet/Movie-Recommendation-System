@@ -21,3 +21,24 @@ class RecommenderMetrics:
             topN[int(userID)] = ratings[:n]
 
         return topN
+
+    def hitRate(topNPredicted, leftOutPredictions):
+        hits = 0
+        total = 0
+
+        for leftOut in leftOutPredictions:
+            userID = leftOut[0]
+            leftOutMovieID = leftOut[1]
+
+            hit = False
+
+            for movieID, estimatedRating in topNPredicted[int(userID)]:
+                if (int(leftOutMovieID) == int(movieID)):
+                    hit = True
+                    break
+                if (hit):
+                    hits += 1
+
+            total += 1
+
+        return hits / total
